@@ -2,51 +2,50 @@ package by.doall.model;
 
 public class Advertisement extends BaseEntity {
 
-    private String title;
-    private String content;
-    private String created;
-    private long userid;
+  private static final long serialVersionUID = -4451351625692036007L;
 
-    public Advertisement(long id, String title, String content, String created, long userid) {
-        super(id);
-        this.title = title;
-        this.content = content;
-        this.created = created;
-        this.userid = userid;
-    }
+  private String title;
+  private String content;
+  private String created;
+  private long userid;
 
-    public String getTitle() {
-        return title;
-    }
+  public Advertisement(long id, String title, String content, String created, long userid) {
+    super(id);
+    this.title = title;
+    this.content = content;
+    this.created = created;
+    this.userid = userid;
+  }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
+  public String getTitle() {
+    return title;
+  }
 
-    public String getContent() {
-        return content;
-    }
+  public void setTitle(String title) {
+    this.title = title;
+  }
 
-    public void setContent(String content) {
-        this.content = content;
-    }
+  public String getContent() {
+    return content;
+  }
 
-    public String getCreated() {
-        return created;
-    }
+  public void setContent(String content) {
+    this.content = content;
+  }
 
-    public void setCreated(String created) {
-        this.created = created;
-    }
+  public String getCreated() {
+    return created;
+  }
 
-    public long getUserid() {
-        return userid;
-    }
+  public void setCreated(String created) {
+    this.created = created;
+  }
 
-    public void setUserid(long userid) {
-        this.userid = userid;
-    }
+  public long getUserid() {
+    return userid;
+  }
+
+  public void setUserid(long userid) {
+    this.userid = userid;
+  }
 }
-
-
-

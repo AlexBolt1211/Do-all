@@ -1,21 +1,23 @@
 package by.doall.web;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
-@WebServlet(
-    name = "base-servlet",
-    urlPatterns = "/do-all/**",
-    description = "application base servlet")
+@WebServlet
 public class BaseServlet extends HttpServlet {
 
+  private static final long serialVersionUID = -335270919478646707L;
+
+  private static final Logger LOG = LogManager.getLogger(BaseServlet.class);
+
   @Override
-  protected void service(HttpServletRequest req, HttpServletResponse resp)
-      throws ServletException, IOException {
-    super.service(req, resp);
+  public void init(ServletConfig config) throws ServletException {
+    super.init(config);
+    LOG.info("init application servlet");
   }
 }

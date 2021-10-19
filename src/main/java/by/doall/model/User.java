@@ -2,48 +2,50 @@ package by.doall.model;
 
 public class User extends BaseEntity {
 
-    private String username;
-    private String lastname;
-    private String firstname;
-    private Role role;
+  private static final long serialVersionUID = -2270576186344836102L;
 
-    public User(long id, String username, String lastname, String firstname, Role role) {
-        super(id);
-        this.username = username;
-        this.lastname = lastname;
-        this.firstname = firstname;
-        this.role = role;
-    }
+  private String username;
+  private String lastname;
+  private String firstname;
+  private Role role;
 
-    public String getUsername() {
-        return username;
-    }
+  public User(long id, String username, String lastname, String firstname, Role role) {
+    super(id);
+    this.username = username;
+    this.lastname = lastname;
+    this.firstname = firstname;
+    this.role = role;
+  }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+  public String getUsername() {
+    return username;
+  }
 
-    public String getLastname() {
-        return lastname;
-    }
+  public void setUsername(String username) {
+    this.username = username;
+  }
 
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
-    }
+  public String getLastname() {
+    return lastname;
+  }
 
-    public String getFirstname() {
-        return firstname;
-    }
+  public void setLastname(String lastname) {
+    this.lastname = lastname;
+  }
 
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
-    }
+  public String getFirstname() {
+    return firstname;
+  }
 
-    public void setRole(Role role){
-        this.role= role;
-    }
+  public void setFirstname(String firstname) {
+    this.firstname = firstname;
+  }
 
-    public Role getRole() {
-        return role;
-    }
+  public Role getRole() {
+    return role;
+  }
+
+  public void setRole(Role role) {
+    this.role = role;
+  }
 }

@@ -2,57 +2,39 @@ package by.doall.repository;
 
 import by.doall.model.Role;
 import by.doall.model.User;
-import by.doall.pool.ConnectionManager;
+import by.doall.sql.MySqlConnectionPool;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.util.Map;
 
 public class UserRepository extends BaseEntityRepository<User> {
 
-  private static final String SELECT_BY_USER_ID =
-      "SELECT id,username,lastname,firstname  FROM users WHERE users.id = ?";
+  private static final String USER_TABLE_COLUMN_ID = "id";
+  private static final String USER_TABLE_COLUMN_USERNAME = "username";
+  private static final String USER_TABLE_COLUMN_ROLE = "role";
+  private static final String USER_TABLE_COLUMN_FIRST_NAME = "firstname";
+  private static final String USER_TABLE_COLUMN_LAST_NAME = "lastname";
 
-  // 30 %
-  // 1. JDBC connection pool
-  // 1.1 configuration
-  // 1.2 provide jdbc drivers
-  // 1.3. init connections 10 on application startup
+  private static final String SQL_GET_USER_BY_USERNAME =
+      "SELECT id, username, firstname, lastname, role FROM users WHERE username=:username";
 
-  // 10 %
-  // 3. repository get jdbc connection from pool
-  // 4. create prepared statement
-  // 5. create query  [Select *  from users where users.id = ? ]
-  // 6. execute query using prepared statement and jdbc connection from pool
-  // 7. process result: build new User object, populate data
-  // 8. finally return connection back to pool
+  private static final Logger LOG = LogManager.getLogger(UserRepository.class);
 
-  @Override
-  public User getById(long id) {
-    Connection connection = connectionManager.takeConnection();
+  public UserRepository() {
+    super(MySqlConnectionPool.getInstance());
+  }
 
-    User user = null;
-
-    try {
-
-      PreparedStatement preparedStatement = connection.prepareStatement(SELECT_BY_USER_ID);
-      preparedStatement.setLong(1, id);
-      ResultSet resultSet = preparedStatement.executeQuery();
-
-      user =
-          new User(
-              resultSet.getLong("id"),
-              resultSet.getString("username"),
-              resultSet.getString("lastname"),
-              resultSet.getString("firstname"),
-              Role.ROLE_GUEST);
-
-    } catch (Exception e) {
-      throw new RepositoryException(e);
-    } finally {
-      connectionManager.returnConnection(connection);
-    }
-
-    return user;
+  public User findByUsername(String username) {
+    return executeQuery(
+        SQL_GET_USER_BY_USERNAME,
+        rs ->
+            new User(
+                rs.getLong(USER_TABLE_COLUMN_ID),
+                rs.getString(USER_TABLE_COLUMN_USERNAME),
+                rs.getString(USER_TABLE_COLUMN_LAST_NAME),
+                rs.getString(USER_TABLE_COLUMN_FIRST_NAME),
+                Role.valueOf(rs.getString(USER_TABLE_COLUMN_ROLE))),
+        Map.of(USER_TABLE_COLUMN_USERNAME, username));
   }
 }
