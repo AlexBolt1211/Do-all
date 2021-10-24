@@ -6,6 +6,9 @@ import by.doall.sql.MySqlConnectionPool;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 
 public class UserRepository extends BaseEntityRepository<User> {
@@ -18,6 +21,9 @@ public class UserRepository extends BaseEntityRepository<User> {
 
   private static final String SQL_GET_USER_BY_USERNAME =
       "SELECT id, username, firstname, lastname, role FROM users WHERE username=:username";
+
+  private static final String SQL_GET_ALL_USERS =
+      "SELECT id, username, firstname, lastname, role FROM users";
 
   private static final Logger LOG = LogManager.getLogger(UserRepository.class);
 
@@ -36,5 +42,29 @@ public class UserRepository extends BaseEntityRepository<User> {
                 rs.getString(USER_TABLE_COLUMN_FIRST_NAME),
                 Role.valueOf(rs.getString(USER_TABLE_COLUMN_ROLE))),
         Map.of(USER_TABLE_COLUMN_USERNAME, username));
+  }
+
+  public List<User> getAll() {
+
+    List<User> userList = new ArrayList<>();
+
+    var result = executeQuery(
+        SQL_GET_ALL_USERS,
+        rs -> {
+          var user =
+              new User(
+                  rs.getLong(USER_TABLE_COLUMN_ID),
+                  rs.getString(USER_TABLE_COLUMN_USERNAME),
+                  rs.getString(USER_TABLE_COLUMN_LAST_NAME),
+                  rs.getString(USER_TABLE_COLUMN_FIRST_NAME),
+                  Role.valueOf(rs.getString(USER_TABLE_COLUMN_ROLE)));
+
+          userList.add(user);
+
+          return null;
+        },
+        Collections.emptyMap());
+
+    return userList;
   }
 }

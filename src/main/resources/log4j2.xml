@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d %-5p [%t] %c.%M - %m%n %throwable{short}%n"/>
+        </Console>
+        <File name="Log2File" fileName="./logs/do-app-app.log" bufferedIO="true">
+            <PatternLayout pattern="%d [%-6p] %C{1}.%M(%F:%L) – %m%n"/>
+        </File>
+    </Appenders>
+    <Loggers>
+        <Root level="all">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="Log2File"/>
+        </Root>
+    </Loggers>
+</Configuration>

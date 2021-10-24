@@ -3,13 +3,13 @@ package by.doall.repository;
 import by.doall.model.BaseEntity;
 import by.doall.repository.exception.RepositoryException;
 import by.doall.sql.ConnectionSource;
+import by.doall.sql.util.ResultSetMapper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.sql.SQLException;
 import java.util.Map;
 import java.util.Objects;
-import java.util.Optional;
 
 public abstract class BaseEntityRepository<T extends BaseEntity> {
 
@@ -33,18 +33,11 @@ public abstract class BaseEntityRepository<T extends BaseEntity> {
     try (var con = getConnectionSource().getConnection();
         var st = con.prepareCall(query)) {
 
-      Optional.ofNullable(params)
-          .ifPresent(
-              p ->
-                  p.forEach(
-                      (key, value) -> {
-                        try {
-                          st.setObject(key, value);
-                        } catch (SQLException e) {
-                          LOG.error("failed to set param {}, {}", key, value);
-                          throw new RepositoryException(e);
-                        }
-                      }));
+      if (params != null && !params.isEmpty()) {
+        for (var entry : params.entrySet()) {
+          st.setObject(entry.getKey(), entry.getValue());
+        }
+      }
 
       var resultSet = st.executeQuery();
       while (resultSet.next()) {

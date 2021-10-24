@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <!DOCTYPE html>
 
@@ -7,6 +8,6 @@
     <title>Do All</title>
 </head>
 <body>
-<%--Hello this is Do All welcome page--%>
+    <c:redirect url="/do-all"/>
 </body>
 </html>
