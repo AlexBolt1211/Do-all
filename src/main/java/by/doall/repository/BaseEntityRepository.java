@@ -7,11 +7,11 @@ import by.doall.sql.util.ResultSetMapper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.sql.SQLException;
+import java.util.Collection;
 import java.util.Map;
 import java.util.Objects;
 
-public abstract class BaseEntityRepository<T extends BaseEntity> {
+public abstract class BaseEntityRepository<T extends BaseEntity> implements EntityRepository<T> {
 
   private static final Logger LOG = LogManager.getLogger(BaseEntityRepository.class);
 
@@ -25,30 +25,18 @@ public abstract class BaseEntityRepository<T extends BaseEntity> {
     return connectionSource;
   }
 
-  protected T executeQuery(String query, ResultSetMapper<T> mapper, Map<String, Object> params)
-      throws RepositoryException {
+  protected abstract ResultSetMapper<T> getResultSetMapper();
 
-    T result = null;
+  protected Collection<T> findAll(String query) throws RepositoryException {
+    return null;
+  }
 
-    try (var con = getConnectionSource().getConnection();
-        var st = con.prepareCall(query)) {
+  protected T create(T entity, String query, Map<String, Object> params)
+          throws RepositoryException {
+    return null;
+  }
 
-      if (params != null && !params.isEmpty()) {
-        for (var entry : params.entrySet()) {
-          st.setObject(entry.getKey(), entry.getValue());
-        }
-      }
-
-      var resultSet = st.executeQuery();
-      while (resultSet.next()) {
-        result = mapper.mapRow(resultSet);
-      }
-
-    } catch (SQLException e) {
-      LOG.error("failed to executeQuery {}", query);
-      throw new RepositoryException(e);
-    }
-
-    return result;
+  protected boolean remove(long id, String query) throws RepositoryException {
+    return false;
   }
 }
