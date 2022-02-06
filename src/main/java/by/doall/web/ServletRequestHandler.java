@@ -32,7 +32,6 @@ public class ServletRequestHandler {
   private void executeCommand(
       Command command, HttpServletRequest req, HttpServletResponse resp, ServletContext ctx) {
 
-
     try {
       command.execute(req, resp);
     } catch (Exception e) {

@@ -2,7 +2,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
-
-<footer class="my-5 pt-5 text-muted text-center text-small">
-    <p class="mb-1">Do All 2021</p>
-</footer>
+<form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3s">
+    <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
+</form>

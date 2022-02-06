@@ -8,6 +8,8 @@ public abstract class BaseEntity implements Serializable {
 
   private long id;
 
+  public BaseEntity() {}
+
   public BaseEntity(long id) {
     this.id = id;
   }

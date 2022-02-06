@@ -9,6 +9,8 @@ public class User extends BaseEntity {
   private String firstname;
   private Role role;
 
+  public User() {}
+
   public User(long id, String username, String lastname, String firstname, Role role) {
     super(id);
     this.username = username;

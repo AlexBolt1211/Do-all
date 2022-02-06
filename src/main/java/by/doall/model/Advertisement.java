@@ -1,20 +1,25 @@
 package by.doall.model;
 
+import java.time.LocalDateTime;
+
 public class Advertisement extends BaseEntity {
 
   private static final long serialVersionUID = -4451351625692036007L;
 
   private String title;
-  private String content;
-  private String created;
-  private long userid;
+  private String description;
+  private LocalDateTime createdAt;
+  private long userId;
 
-  public Advertisement(long id, String title, String content, String created, long userid) {
+  public Advertisement() {}
+
+  public Advertisement(
+      long id, String title, String description, LocalDateTime createdAt, long userId) {
     super(id);
     this.title = title;
-    this.content = content;
-    this.created = created;
-    this.userid = userid;
+    this.description = description;
+    this.createdAt = createdAt;
+    this.userId = userId;
   }
 
   public String getTitle() {
@@ -25,27 +30,27 @@ public class Advertisement extends BaseEntity {
     this.title = title;
   }
 
-  public String getContent() {
-    return content;
+  public String getDescription() {
+    return description;
   }
 
-  public void setContent(String content) {
-    this.content = content;
+  public void setDescription(String description) {
+    this.description = description;
   }
 
-  public String getCreated() {
-    return created;
+  public LocalDateTime getCreatedAt() {
+    return createdAt;
   }
 
-  public void setCreated(String created) {
-    this.created = created;
+  public void setCreatedAt(LocalDateTime createdAt) {
+    this.createdAt = createdAt;
   }
 
-  public long getUserid() {
-    return userid;
+  public long getUserId() {
+    return userId;
   }
 
-  public void setUserid(long userid) {
-    this.userid = userid;
+  public void setUserId(long userId) {
+    this.userId = userId;
   }
 }

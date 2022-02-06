@@ -4,23 +4,25 @@
 
 <!DOCTYPE html>
 
-<html>
-    <head>
-        <title>Do All</title>
-        <c:import url="meta.jsp"/>
-    </head>
+<html lang="en">
+<head>
+    <title>Do All</title>
+    <c:import url="meta.jsp"/>
 
-    <body>
-        <c:import url="header.jsp"/>
+</head>
 
-        <div class="container">
+<body>
+<div class="container">
+    <c:import url="header.jsp"/>
 
-            <c:forEach var = "user"  items="${users}">
-                    <p><c:out value = "${user.id} ${user.username}"/> </p>
-            </c:forEach>
+    <c:forEach begin="0" end="15" var="i">
+        <c:import url="card.jsp">
+            <c:param name="pageTitle" value="${i}"/>
+        </c:import>
+    </c:forEach>
 
-        </div>
+</div>
 
-    <c:import url="footer.jsp"/>
-    </body>
+<c:import url="footer.jsp"/>
+</body>
 </html>
