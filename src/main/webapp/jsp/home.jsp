@@ -15,9 +15,12 @@
 <div class="container">
     <c:import url="header.jsp"/>
 
-    <c:forEach begin="0" end="15" var="i">
+
+    <c:forEach  items="${advertisementList}" var="advertisement">
         <c:import url="card.jsp">
-            <c:param name="pageTitle" value="${i}"/>
+            <c:param name="pageTitle" value="${advertisement.title}"/>
+            <c:param name="pageDescription" value="${advertisement.description}"/>
+            <c:param name="pageCreatedAt" value="${advertisement.createdAt}"/>
         </c:import>
     </c:forEach>
 
