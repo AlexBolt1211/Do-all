@@ -1,12 +1,12 @@
 package by.doall.repository;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.List;
-
 import by.doall.model.Advertisement;
 import by.doall.repository.exception.RepositoryException;
 import by.doall.sql.MySqlConnectionPool;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.List;
 
 public class AdvertisementRepository extends BaseEntityRepository<Advertisement> {
 
@@ -29,7 +29,7 @@ public class AdvertisementRepository extends BaseEntityRepository<Advertisement>
   }
 
   private static void mapRow(ResultSet rs, Advertisement obj) throws SQLException {
-    obj.setId(rs.getInt("id"));
+    obj.setId(rs.getLong("id"));
     obj.setTitle(rs.getString("title"));
     obj.setDescription(rs.getString("description"));
     obj.setCreatedAt(rs.getTimestamp("createdAt").toLocalDateTime());
@@ -48,7 +48,7 @@ public class AdvertisementRepository extends BaseEntityRepository<Advertisement>
     return super.create(SQL_CREATE_AD, obj.getTitle(), obj.getDescription());
   }
 
-  public void update(Advertisement obj) throws RepositoryException {
+  public void updateAdevertisementtrshjetuyu(Advertisement obj) throws RepositoryException {
     super.update(SQL_UPDATE_AD, obj.getId(), obj.getTitle(), obj.getDescription());
   }
 

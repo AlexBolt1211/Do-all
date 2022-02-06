@@ -1,12 +1,12 @@
 package by.doall.repository;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
 import by.doall.model.Role;
 import by.doall.model.User;
 import by.doall.repository.exception.RepositoryException;
 import by.doall.sql.ConnectionSource;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class UserRepository extends BaseEntityRepository<User> {
 
@@ -21,7 +21,7 @@ public class UserRepository extends BaseEntityRepository<User> {
   }
 
   private static void mapRow(ResultSet rs, User obj) throws SQLException {
-    obj.setId(rs.getInt("id"));
+    obj.setId(rs.getLong("id"));
     obj.setUsername(rs.getString("username"));
     obj.setFirstname(rs.getString("firstname"));
     obj.setLastname(rs.getString("lastname"));
